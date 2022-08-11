@@ -1,5 +1,5 @@
-// const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
-// contextBridge.exposeInMainWorld("electronAPI", {
-//     insert: (data) => ipcRenderer.send("insert", data),
-// });
+contextBridge.exposeInMainWorld("account", {
+    insert: (data) => ipcRenderer.send("insert-account", data),
+});

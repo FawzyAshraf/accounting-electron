@@ -1,4 +1,4 @@
-const { ipcRenderer, contextBridge } = require("electron");
+const { ipcRenderer } = require("electron");
 
 ipcRenderer.on("allAccounts", function (event, allAccounts) {
     const selectElement = document.querySelector("select");
@@ -8,8 +8,4 @@ ipcRenderer.on("allAccounts", function (event, allAccounts) {
         option.innerHTML = account.name;
         selectElement.appendChild(option);
     });
-});
-
-contextBridge.exposeInMainWorld("record", {
-    insert: (data) => ipcRenderer.send("insert-record", data),
 });

@@ -8,11 +8,39 @@
 </head>
 <body>
     <form action="" id="record-form">
+
         <label for="record-name">Name</label>
-        <input type="text" name="record-name" id="record-name">
+        <input type="text" required name="record-name" id="record-name">
+
         <label for="code">Code</label>
-        <input type="text" name="code" id="code">
+        <input type="text" required name="code" id="code">
+
+        <label for="account-id">Account</label>
+        <select name="account-id" id="account-id"></select>
+
+        <label for="basic">Basic</label>
+        <input type="number" name="basic" value="0" required id="basic" min="0" step="0.01">
+
+        <label for="plus">Plus</label>
+        <input type="number" name="plus" id="plus" value="0" required min="0" step="0.01">
+
+        <label for="deduction">Deduction</label>
+        <input type="number" name="deduction" id="deduction" value="0" required min="0" step="0.01">
+
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date">
+
+        <label for="balance">Balance</label>
+        <input type="number" name="balance" id="balance" value="0" required min="0" step="0.01">
+
+        <label for="details">Details</label>
+        <input type="text"  name="details" id="details">
+
+        <label for="notes">Notes</label>
+        <input type="text"  name="notes" id="notes">
+
         <button type="submit">Submit</button>
+
     </form>
     <p id="message"></p>
     <script src="../Renderers/add-record.js"></script>

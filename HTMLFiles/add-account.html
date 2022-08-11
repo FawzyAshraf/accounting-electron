@@ -8,9 +8,24 @@
 </head>
 <body>
     <form action="" id="account-form">
+
         <label for="account-name">Name</label>
-        <input type="text" name="account-name" id="account-name">
+        <input type="text" name="account-name" id="account-name" required>
+
+        <label for="basic">Basic</label>
+        <input type="text" name="basic" id="basic">
+
+        <label for="plus">Plus</label>
+        <input type="text" name="plus" id="plus">
+
+        <label for="deduction">Deduction</label>
+        <input type="text" name="deduction" id="deduction">
+
+        <label for="balance">Balance</label>
+        <input type="text" name="balance" id="balance">
+
         <button type="submit">Submit</button>
+
     </form>
     <script src="../Renderers/add-account.js"></script>
     <p id="message"></p>

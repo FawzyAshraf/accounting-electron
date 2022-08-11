@@ -1,7 +1,14 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
-const { createTables, insertAccount } = require("./db");
+const {
+    createTables,
+    insertAccount,
+    getAllAccounts,
+    insertRecord,
+    getAllAccountsDetailed,
+    closeDBConnection,
+} = require("./db");
 
 createTables();
 
@@ -18,10 +25,6 @@ function createWindow() {
     // and load the index.html of the app.
     mainWindow.loadFile("HTMLFiles/index.html");
 
-    ipcMain.on("set-title", (event, data) => {
-        insertAccount({ name: data });
-    });
-
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
 
@@ -30,20 +33,26 @@ function createWindow() {
             label: "Add",
             submenu: [
                 {
-                    label: "Accountant",
+                    label: "Account",
                     click: async () => {
-                        const accountantWindow = new BrowserWindow({
+                        const accountWindow = new BrowserWindow({
                             height: 800,
                             width: 600,
-                            webPreferences: path.join(
-                                __dirname,
-                                "Preloaders/add-account.js"
-                            ),
+                            webPreferences: {
+                                preload: path.join(
+                                    __dirname,
+                                    "Preloaders/add-account.js"
+                                ),
+                            },
                         });
 
-                        accountantWindow.openDevTools();
+                        accountWindow.openDevTools();
 
-                        accountantWindow.loadFile("HTMLFiles/add-account.html");
+                        ipcMain.on("insert-account", (event, data) => {
+                            insertAccount(data);
+                        });
+
+                        accountWindow.loadFile("HTMLFiles/add-account.html");
                     },
                 },
                 {
@@ -52,10 +61,23 @@ function createWindow() {
                         const recordWindow = new BrowserWindow({
                             height: 800,
                             width: 600,
-                            webPreferences: path.join(
-                                __dirname,
-                                "Preloaders/add-record.js"
-                            ),
+                            webPreferences: {
+                                preload: path.join(
+                                    __dirname,
+                                    "Preloaders/add-record.js"
+                                ),
+                            },
+                        });
+
+                        const allAccounts = await getAllAccounts();
+
+                        recordWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+
+                        ipcMain.on("insert-record", (event, data) => {
+                            insertRecord(data);
                         });
 
                         recordWindow.openDevTools();
@@ -66,7 +88,63 @@ function createWindow() {
             ],
         },
         {
-            label: "window",
+            label: "View",
+            submenu: [
+                {
+                    label: "Accounts",
+                    click: async () => {
+                        const accountsWindow = new BrowserWindow({
+                            height: 1000,
+                            width: 800,
+                            webPreferences: {
+                                preload: path.join(
+                                    __dirname,
+                                    "Preloaders/view-accounts.js"
+                                ),
+                            },
+                        });
+
+                        accountsWindow.openDevTools();
+
+                        const allAccounts = await getAllAccountsDetailed();
+
+                        accountsWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+                        accountsWindow.loadFile("HTMLFiles/view-accounts.html");
+                    },
+                },
+                {
+                    label: "Records",
+                    click: async () => {
+                        const recordsWindow = new BrowserWindow({
+                            height: 1000,
+                            width: 800,
+                            webPreferences: {
+                                preload: path.join(
+                                    __dirname,
+                                    "Preloaders/view-records.js"
+                                ),
+                            },
+                        });
+
+                        recordsWindow.openDevTools();
+
+                        const allAccounts = await getAllAccounts();
+
+                        recordsWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+
+                        recordsWindow.loadFile("HTMLFiles/view-records.html");
+                    },
+                },
+            ],
+        },
+        {
+            label: "Window",
             submenu: [
                 { role: "minimize" },
                 { role: "zoom" },
@@ -76,7 +154,7 @@ function createWindow() {
     ];
 
     const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    mainWindow.setMenu(menu);
 }
 
 // This method will be called when Electron has finished
@@ -96,6 +174,7 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on("window-all-closed", function () {
+    closeDBConnection();
     if (process.platform !== "darwin") app.quit();
 });
 
