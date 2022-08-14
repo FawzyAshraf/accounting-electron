@@ -1,3 +1,81 @@
-/* styles.css */
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Add styles here to customize the appearance of your app */
+body {
+    font-family: sans-serif;
+    background: #d5e1eb;
+    line-height: 1.5;
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 90%;
+    border-collapse: collapse;
+    margin: 1.25rem auto;
+    border: 2px solid #59abdb;
+}
+
+table thead {
+    background-color: #59abdb;
+    color: #ffffff;
+}
+
+th,
+td {
+    padding: 12px 15px;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f2fbfa;
+}
+
+th{
+    cursor: pointer;
+}
+
+form{
+    width: 75%;
+    margin: 0.75rem auto;
+    padding: 15px;
+    background-color: #fff;
+
+}
+
+h1{
+    margin: 0.85rem auto;
+}
+
+input, select{
+    width: 80%;
+    height: 40px;
+    padding: 0px 10px;
+    font-size: 1.25rem;
+    margin: 10px auto;
+}
+
+label{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+button{
+    width: 100px;
+    height: 40px;
+    background-color: rgb(80, 139, 206);
+    border: none;
+    font-size: 1.3rem;
+    margin-top: 10px;
+    color: #fff;
+    border-radius: 01.25rem;
+}
