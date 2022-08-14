@@ -1,6 +1,7 @@
 const form = document.querySelector("#account-form");
 
 form.addEventListener("submit", (e) => {
+    e.preventDefault();
     const accountName = form.querySelector("#account-name").value;
     const basic = form.querySelector("#basic").value || "Basic";
     const plus = form.querySelector("#plus").value || "Plus";
@@ -13,5 +14,7 @@ form.addEventListener("submit", (e) => {
         deduction,
         balance,
     });
-    e.preventDefault();
+    // document.querySelector(
+    //     "#message"
+    // ).innerText = `Added ${accountName} Successfully`;
 });

@@ -20,7 +20,7 @@ exports.menuTemplate = [
                         },
                     });
 
-                    // accountWindow.openDevTools();
+                    accountWindow.openDevTools();
 
                     accountWindow.loadFile("HTMLFiles/add-account.html");
                 },
@@ -40,10 +40,11 @@ exports.menuTemplate = [
                     });
 
                     const allAccounts = await getAllAccounts();
+                    console.log("hello");
 
                     recordWindow.webContents.send("allAccounts", allAccounts);
 
-                    // recordWindow.openDevTools();
+                    recordWindow.openDevTools();
 
                     recordWindow.loadFile("HTMLFiles/add-record.html");
                 },
@@ -67,7 +68,7 @@ exports.menuTemplate = [
                         },
                     });
 
-                    // accountsWindow.openDevTools();
+                    accountsWindow.openDevTools();
 
                     const allAccounts = await getAllAccountsDetailed();
 
@@ -101,7 +102,7 @@ exports.menuTemplate = [
                         allAccounts
                     );
 
-                    // recordAccountWindow.openDevTools();
+                    recordAccountWindow.openDevTools();
                     recordAccountWindow.loadFile("HTMLFiles/view-records.html");
                 },
             },
@@ -124,7 +125,7 @@ exports.menuTemplate = [
                         },
                     });
 
-                    // recordsWindow.openDevTools();
+                    recordsWindow.openDevTools();
 
                     const allAccounts = await getAllAccounts();
                     recordsWindow.webContents.send("allAccounts", allAccounts);
