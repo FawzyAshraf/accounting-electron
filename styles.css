@@ -40,6 +40,10 @@ table tbody tr:nth-of-type(even) {
     background-color: #f2fbfa;
 }
 
+table td+td {
+    border-left: 1px dashed #59abdb;
+}
+
 th{
     cursor: pointer;
 }
@@ -48,8 +52,9 @@ form{
     width: 75%;
     margin: 0.75rem auto;
     padding: 15px;
+    padding-top: 30px;
     background-color: #fff;
-
+    border-radius: 0.5rem;
 }
 
 h1, h3{

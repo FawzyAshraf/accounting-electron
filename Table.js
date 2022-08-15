@@ -1,11 +1,12 @@
 class Table {
-    constructor(tableData) {
+    constructor(tableData, root = document) {
+        this.root = root;
         this.tableData = tableData;
         const columns = document.querySelectorAll("th").length;
         this.tableData = tableData;
         this.sortState = Array(columns);
         this.sortState.fill(-1);
-        document.querySelectorAll("th").forEach((th, idx) => {
+        this.root.querySelectorAll("th").forEach((th, idx) => {
             th.addEventListener("click", () => {
                 this.sortOnClick(idx);
             });
@@ -13,7 +14,7 @@ class Table {
     }
 
     fillTable() {
-        const tbody = document.querySelector("tbody");
+        const tbody = this.root.querySelector("tbody");
         tbody.innerHTML = "";
         if (!this.tableData) return;
         this.tableData.forEach((record) => {

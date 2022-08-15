@@ -1,6 +1,6 @@
 const { ipcRenderer, contextBridge } = require("electron");
 
-contextBridge.exposeInMainWorld("record", {
-    search: (data) => ipcRenderer.invoke("search-records", data),
+contextBridge.exposeInMainWorld("subject", {
+    insert: (data) => ipcRenderer.send("insert-subject", data),
     getAccounts: (callback) => ipcRenderer.on("allAccounts", callback),
 });

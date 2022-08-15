@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const allAccounts = await window.accounts.viewAccounts();
+window.accounts.viewAccounts((event, allAccounts) => {
     const table = new Table(allAccounts);
     table.fillTable();
 });

@@ -14,7 +14,10 @@ form.addEventListener("submit", (e) => {
         deduction,
         balance,
     });
-    // document.querySelector(
-    //     "#message"
-    // ).innerText = `Added ${accountName} Successfully`;
+    document.querySelector(
+        "#message"
+    ).innerText = `Added ${accountName} Successfully`;
+    document.querySelectorAll("input").forEach((input) => {
+        input.value = "";
+    });
 });

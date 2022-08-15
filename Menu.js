@@ -1,6 +1,6 @@
 const { BrowserWindow } = require("electron");
 const path = require("path");
-const { getAllAccounts, getAllAccountsDetailed } = require("./db");
+const { getAllAccounts, getAllAccountsDetailed, getSubjects } = require("./db");
 
 exports.menuTemplate = [
     {
@@ -20,9 +20,38 @@ exports.menuTemplate = [
                         },
                     });
 
-                    accountWindow.openDevTools();
+                    // accountWindow.openDevTools();
 
                     accountWindow.loadFile("HTMLFiles/add-account.html");
+                },
+            },
+            {
+                label: "Subject",
+                click: async () => {
+                    const subjectWindow = new BrowserWindow({
+                        height: 1200,
+                        width: 1000,
+                        webPreferences: {
+                            preload: path.join(
+                                __dirname,
+                                "Preloaders/add-subject.js"
+                            ),
+                        },
+                    });
+
+                    const allAccounts = await getAllAccounts();
+                    // console.log("hello");
+
+                    subjectWindow.webContents.on("did-finish-load", () => {
+                        subjectWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+                    });
+
+                    // subjectWindow.openDevTools();
+
+                    subjectWindow.loadFile("HTMLFiles/add-subject.html");
                 },
             },
             {
@@ -39,12 +68,16 @@ exports.menuTemplate = [
                         },
                     });
 
-                    const allAccounts = await getAllAccounts();
-                    console.log("hello");
+                    const allSubjects = await getSubjects({});
+                    // console.log("hello");
+                    recordWindow.webContents.on("did-finish-load", () => {
+                        recordWindow.webContents.send(
+                            "allSubjects",
+                            allSubjects
+                        );
+                    });
 
-                    recordWindow.webContents.send("allAccounts", allAccounts);
-
-                    recordWindow.openDevTools();
+                    // recordWindow.openDevTools();
 
                     recordWindow.loadFile("HTMLFiles/add-record.html");
                 },
@@ -68,42 +101,43 @@ exports.menuTemplate = [
                         },
                     });
 
-                    accountsWindow.openDevTools();
+                    // accountsWindow.openDevTools();
 
                     const allAccounts = await getAllAccountsDetailed();
 
-                    accountsWindow.webContents.send("allAccounts", allAccounts);
+                    accountsWindow.webContents.on("did-finish-load", () => {
+                        accountsWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+                    });
                     accountsWindow.loadFile("HTMLFiles/view-accounts.html");
                 },
             },
             {
-                label: "Records per Account",
+                label: "Subjects",
                 click: async () => {
-                    const recordAccountWindow = new BrowserWindow({
+                    const subjectsWindow = new BrowserWindow({
                         height: 1200,
                         width: 1000,
                         webPreferences: {
                             preload: path.join(
                                 __dirname,
-                                "Preloaders/view-records.js"
+                                "Preloaders/view-subjects.js"
                             ),
                         },
                     });
 
-                    // const allAccounts = await getAllAccounts();
-                    // recordAccountWindow.webContents.send(
-                    // 	"allAccounts",
-                    // 	allAccounts,
-                    // );
-                    const allAccounts = await getAllAccountsDetailed();
+                    const allSubjects = await getSubjects({});
+                    subjectsWindow.webContents.on("did-finish-load", () => {
+                        subjectsWindow.webContents.send(
+                            "allSubjects",
+                            allSubjects
+                        );
+                    });
 
-                    recordAccountWindow.webContents.send(
-                        "allAccounts",
-                        allAccounts
-                    );
-
-                    recordAccountWindow.openDevTools();
-                    recordAccountWindow.loadFile("HTMLFiles/view-records.html");
+                    // subjectsWindow.openDevTools();
+                    subjectsWindow.loadFile("HTMLFiles/view-subjects.html");
                 },
             },
         ],
@@ -125,10 +159,15 @@ exports.menuTemplate = [
                         },
                     });
 
-                    recordsWindow.openDevTools();
+                    // recordsWindow.openDevTools();
 
                     const allAccounts = await getAllAccounts();
-                    recordsWindow.webContents.send("allAccounts", allAccounts);
+                    recordsWindow.webContents.on("did-finish-load", () => {
+                        recordsWindow.webContents.send(
+                            "allAccounts",
+                            allAccounts
+                        );
+                    });
 
                     recordsWindow.loadFile("HTMLFiles/search-records.html");
                 },

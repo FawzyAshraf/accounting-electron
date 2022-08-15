@@ -1,15 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-    <link href="../styles.css" rel="stylesheet">
-    <title>Electron App!!</title>
-  </head>
-  <body>
-    <h1>Welcome!</h1>
-    <!-- You can also require other files to run in this process -->
-    <script src="../Renderers/renderer.js"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+        />
+        <link href="../styles.css" rel="stylesheet" />
+        <title>Electron App!!</title>
+    </head>
+    <body>
+        <h1>Welcome!</h1>
+        <main>
+            <div id="accounts">
+                <h3>Accounts</h3>
+                <table id="accounts-table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Account Name</th>
+                            <th>Basic</th>
+                            <th>Plus</th>
+                            <th>Deduction</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div id="subjects">
+                <h3>Subjects</h3>
+                <table id="subjects-table">
+                    <thead>
+                        <tr>
+                            <th>Subject Id</th>
+                            <th>Subject Code</th>
+                            <th>Account</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div id="records">
+                <h3>Records</h3>
+                <table id="records-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Record Name</th>
+                            <th>Subject Code</th>
+                            <th>Account Name</th>
+                            <th>Basic</th>
+                            <th>Plus</th>
+                            <th>Deduction</th>
+                            <th>Balance</th>
+                            <th>Date</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </main>
+
+        <script src="../Table.js"></script>
+        <script src="../Renderers/renderer.js"></script>
+    </body>
 </html>
