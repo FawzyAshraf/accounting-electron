@@ -16,6 +16,7 @@ form.addEventListener("submit", (e) => {
 
     const code = form.querySelector("#code").value;
     const accountId = form.querySelector("#account-id").value;
+    const basic = form.querySelector("#basic").value || 0;
     const notes = form.querySelector("#notes").value || " ";
 
     try {
@@ -23,12 +24,16 @@ form.addEventListener("submit", (e) => {
             code,
             accountId,
             notes,
+            basic,
         });
     } catch (err) {
         console.error(err);
     }
     document.querySelector("#message").innerText = `Added ${code} Successfully`;
-    document.querySelectorAll("input").forEach((input) => {
+    document.querySelectorAll("input[type=text]").forEach((input) => {
         input.value = "";
+    });
+    document.querySelectorAll("input[type=number]").forEach((input) => {
+        input.value = 0;
     });
 });

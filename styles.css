@@ -61,7 +61,7 @@ h1, h3{
     margin: 0.85rem auto;
 }
 
-input, select{
+input, select, textarea{
     width: 80%;
     height: 40px;
     padding: 0px 10px;
@@ -71,8 +71,16 @@ input, select{
     border: 1px solid #75a2c7
 }
 
+textarea{
+    height: 120px;
+}
+
+input:disabled{
+    background-color: #dddddd;
+    border: #dddddd;
+}
+
 label{
-    display: inline-block;
     margin-left: 10px;
 }
 
@@ -85,4 +93,8 @@ button{
     margin-top: 10px;
     color: #fff;
     border-radius: 01.25rem;
+}
+
+.text-area-container *{
+    vertical-align: middle;
 }

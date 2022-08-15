@@ -1,6 +1,6 @@
 const { BrowserWindow } = require("electron");
 const path = require("path");
-const { getAllAccounts, getAllAccountsDetailed, getSubjects } = require("./db");
+const { getAllAccounts, getAllAccountsDetailed, getSubjects, getAllSubjectsDetailed } = require("./db");
 
 exports.menuTemplate = [
     {
@@ -13,10 +13,7 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/add-account.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/add-account.js"),
                         },
                     });
 
@@ -32,10 +29,7 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/add-subject.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/add-subject.js"),
                         },
                     });
 
@@ -43,10 +37,7 @@ exports.menuTemplate = [
                     // console.log("hello");
 
                     subjectWindow.webContents.on("did-finish-load", () => {
-                        subjectWindow.webContents.send(
-                            "allAccounts",
-                            allAccounts
-                        );
+                        subjectWindow.webContents.send("allAccounts", allAccounts);
                     });
 
                     // subjectWindow.openDevTools();
@@ -61,23 +52,17 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/add-record.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/add-record.js"),
                         },
                     });
 
-                    const allSubjects = await getSubjects({});
+                    const allSubjects = await getAllSubjectsDetailed({});
                     // console.log("hello");
                     recordWindow.webContents.on("did-finish-load", () => {
-                        recordWindow.webContents.send(
-                            "allSubjects",
-                            allSubjects
-                        );
+                        recordWindow.webContents.send("allSubjects", allSubjects);
                     });
 
-                    // recordWindow.openDevTools();
+                    recordWindow.openDevTools();
 
                     recordWindow.loadFile("HTMLFiles/add-record.html");
                 },
@@ -94,10 +79,7 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/view-accounts.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/view-accounts.js"),
                         },
                     });
 
@@ -106,10 +88,7 @@ exports.menuTemplate = [
                     const allAccounts = await getAllAccountsDetailed();
 
                     accountsWindow.webContents.on("did-finish-load", () => {
-                        accountsWindow.webContents.send(
-                            "allAccounts",
-                            allAccounts
-                        );
+                        accountsWindow.webContents.send("allAccounts", allAccounts);
                     });
                     accountsWindow.loadFile("HTMLFiles/view-accounts.html");
                 },
@@ -121,19 +100,13 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/view-subjects.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/view-subjects.js"),
                         },
                     });
 
                     const allSubjects = await getSubjects({});
                     subjectsWindow.webContents.on("did-finish-load", () => {
-                        subjectsWindow.webContents.send(
-                            "allSubjects",
-                            allSubjects
-                        );
+                        subjectsWindow.webContents.send("allSubjects", allSubjects);
                     });
 
                     // subjectsWindow.openDevTools();
@@ -152,10 +125,7 @@ exports.menuTemplate = [
                         height: 1200,
                         width: 1000,
                         webPreferences: {
-                            preload: path.join(
-                                __dirname,
-                                "Preloaders/search-records.js"
-                            ),
+                            preload: path.join(__dirname, "Preloaders/search-records.js"),
                         },
                     });
 
@@ -163,10 +133,7 @@ exports.menuTemplate = [
 
                     const allAccounts = await getAllAccounts();
                     recordsWindow.webContents.on("did-finish-load", () => {
-                        recordsWindow.webContents.send(
-                            "allAccounts",
-                            allAccounts
-                        );
+                        recordsWindow.webContents.send("allAccounts", allAccounts);
                     });
 
                     recordsWindow.loadFile("HTMLFiles/search-records.html");

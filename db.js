@@ -1,8 +1,5 @@
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database(
-    "./app.db",
-    sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE
-);
+const db = new sqlite3.Database("./app.db", sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE);
 
 exports.createTables = () => {
     db.serialize(() => {
@@ -21,6 +18,7 @@ exports.createTables = () => {
             "CREATE TABLE IF NOT EXISTS Subject (\
                 id INTEGER PRIMARY KEY AUTOINCREMENT,\
 				account_id INTEGER NOT NULL,\
+                basic REAK DEFAULT 0,\
 				code TEXT NOT NULL,\
 				notes TEXT,\
 				FOREIGN KEY (account_id)\
@@ -33,7 +31,6 @@ exports.createTables = () => {
             "CREATE TABLE IF NOT EXISTS Record (id INTEGER PRIMARY KEY AUTOINCREMENT,\
 				sub_id INTEGER NOT NULL,\
 				name TEXT NOT NULL,\
-				basic REAL DEFAULT 0,\
 				plus REAL DEFAULT 0,\
         		deduction REAL DEFAULT 0,\
 				balance REAL DEFAULT 0,\
@@ -68,13 +65,13 @@ exports.insertAccount = (args) => {
 };
 
 exports.insertSubject = (args) => {
-    let { accountId, code, notes } = args;
+    let { accountId, code, notes, basic } = args;
 
     db.run(
         `INSERT INTO Subject\
-            (code, account_id, notes)\
+            (code, account_id, notes, basic)\
             VALUES(\
-                '${code}', ${accountId}, '${notes}'\
+                '${code}', ${accountId}, '${notes}', ${basic}\
             )`
     );
 
@@ -82,13 +79,12 @@ exports.insertSubject = (args) => {
 };
 
 exports.insertRecord = (args) => {
-    const { name, subId, basic, plus, deduction, balance, date, details } =
-        args;
+    const { name, subId, plus, deduction, balance, date, details } = args;
 
     db.run(
         `INSERT INTO Record\
-            (name, sub_id, basic, plus, deduction, balance, date, details)\
-            VALUES('${name}', ${subId}, ${basic}, ${plus}, ${deduction}, ${balance}, ${date}, '${details}'\
+            (name, sub_id, plus, deduction, balance, date, details)\
+            VALUES('${name}', ${subId}, ${plus}, ${deduction}, ${balance}, ${date}, '${details}'\
             )`
     );
 
@@ -109,12 +105,27 @@ exports.getSubjects = async (args) => {
     const { code, accountId, id } = args;
 
     let SQLString =
-        "SELECT Subject.id AS id, code, name, notes\
+        "SELECT Subject.id AS id, code, basic, name, notes\
 			FROM Subject INNER JOIN Account\
 			WHERE Account.id = Subject.account_id ";
 
-    if (accountId !== -1 && accountId !== undefined)
-        SQLString += `AND account_id = ${accountId} `;
+    if (accountId !== -1 && accountId !== undefined) SQLString += `AND account_id = ${accountId} `;
+    if (id !== -1 && id !== undefined) SQLString += `AND Subject.id = ${id} `;
+    if (code !== undefined) SQLString += `AND code = '${code}' `;
+
+    const subjects = await getQueryData(SQLString);
+    return subjects;
+};
+
+exports.getAllSubjectsDetailed = async (args) => {
+    const { code, accountId, id } = args;
+
+    let SQLString =
+        "SELECT Subject.id AS id, code, basic, name, notes, basic_text, plus_text, deduction_text, balance_text\
+			FROM Subject INNER JOIN Account\
+			WHERE Account.id = Subject.account_id ";
+
+    if (accountId !== -1 && accountId !== undefined) SQLString += `AND account_id = ${accountId} `;
     if (id !== -1 && id !== undefined) SQLString += `AND Subject.id = ${id} `;
     if (code !== undefined) SQLString += `AND code = '${code}' `;
 
@@ -123,15 +134,7 @@ exports.getSubjects = async (args) => {
 };
 
 exports.getRecords = async (args) => {
-    const {
-        code,
-        accountId,
-        id,
-        recordName,
-        dateSpecific,
-        dateStart,
-        dateEnd,
-    } = args;
+    const { code, accountId, id, recordName, dateSpecific, dateStart, dateEnd } = args;
 
     let SQLString =
         "SELECT Record.id AS id, Record.name AS name, code, Account.name AS account, basic,\
@@ -139,12 +142,10 @@ exports.getRecords = async (args) => {
 			FROM Record INNER JOIN Subject INNER JOIN Account\
 			WHERE Subject.id = Record.sub_id AND Subject.account_id = Account.id ";
 
-    if (accountId !== -1 && accountId !== undefined)
-        SQLString += `AND account_id = ${accountId} `;
+    if (accountId !== -1 && accountId !== undefined) SQLString += `AND account_id = ${accountId} `;
     if (id !== -1 && id !== undefined) SQLString += `AND Record.id = ${id} `;
     if (code !== undefined) SQLString += `AND code = '${code}' `;
-    if (recordName !== undefined)
-        SQLString += `AND Record.name = '${recordName}' `;
+    if (recordName !== undefined) SQLString += `AND Record.name = '${recordName}' `;
     if (dateSpecific !== undefined) SQLString += `AND date = ${dateSpecific} `;
     if (dateStart !== undefined) SQLString += `AND date >= ${dateStart} `;
     if (dateEnd !== undefined) SQLString += `AND date <= ${dateEnd} `;

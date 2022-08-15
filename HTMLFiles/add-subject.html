@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="../styles.css" rel="stylesheet" />
+        <title>Add Subject</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../styles.css" rel="stylesheet">
-    <title>Add Subject</title>
-</head>
+    <body>
+        <h1>Add a New Subject</h1>
+        <form action="" id="subject-form">
+            <label for="code">Code</label>
+            <input type="text" required name="code" id="code" /><br />
 
-<body>
-    <h1>Add a New Subject</h1>
-    <form action="" id="subject-form">
+            <label for="account-id">Account</label>
+            <select name="account-id" id="account-id"></select
+            ><br />
 
-        <label for="code">Code</label>
-        <input type="text" required name="code" id="code"><br>
+            <label for="basic">Basic</label>
+            <input type="number" name="basic" value="0" required id="basic" min="0" step="0.01" /><br />
 
-        <label for="account-id">Account</label>
-        <select name="account-id" id="account-id"></select><br>
+            <div class="text-area-container">
+                <label for="notes">Notes</label>
+                <textarea name="notes" id="notes"></textarea>
+            </div>
 
-        <label for="notes">Notes</label>
-        <input type="text" name="notes" id="notes"><br>
-
-        <button type="submit">Submit</button>
-
-    </form>
-    <p id="message"></p>
-    <script src="../Renderers/add-subject.js"></script>
-</body>
-
+            <button type="submit">Submit</button>
+        </form>
+        <p id="message"></p>
+        <script src="../Renderers/add-subject.js"></script>
+    </body>
 </html>
