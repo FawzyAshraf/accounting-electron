@@ -12,6 +12,14 @@ const {
     getSubjects,
 } = require("./db");
 const { menuTemplate } = require("./Menu");
+const {
+    addAccount,
+    addSubject,
+    addRecord,
+    viewSubjects,
+    viewAccounts,
+    searchRecords,
+} = require("./windowsOpeners");
 
 createTables();
 
@@ -46,6 +54,31 @@ app.whenReady().then(() => {
     ipcMain.handle("search-records", async (event, data) => {
         const records = await getRecords(data);
         return records;
+    });
+
+    ipcMain.handle("open-window", async (event, windowName) => {
+        switch (windowName) {
+            case "add-account":
+                addAccount();
+                break;
+            case "add-subject":
+                addSubject();
+                break;
+            case "add-record":
+                addRecord();
+                break;
+            case "view-account":
+                viewAccounts();
+                break;
+            case "view-subject":
+                viewSubjects();
+                break;
+            case "search-records":
+                searchRecords();
+                break;
+            default:
+                break;
+        }
     });
 
     ipcMain.on("insert-account", (event, data) => {
