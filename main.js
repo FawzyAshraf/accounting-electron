@@ -36,9 +36,26 @@ async function createWindow() {
 
     // mainWindow.webContents.openDevTools();
 
-    const allAccounts = await getAllAccountsDetailed();
-    const allRecords = await getRecords({});
-    const allSubjects = await getSubjects({});
+    let allAccounts = await getAllAccountsDetailed();
+    let allRecords = await getRecords({});
+    let allSubjects = await getSubjects({});
+
+    ipcMain.handle("new-data", async (event, data) => {
+        switch (data) {
+            case "account":
+                allAccounts = await getAllAccountsDetailed();
+                break;
+            case "subject":
+                allSubjects = await getSubjects({});
+                break;
+            case "record":
+                allRecords = await getRecords({});
+                break;
+            default:
+                break;
+        }
+        mainWindow.reload();
+    });
 
     mainWindow.webContents.on("did-finish-load", () => {
         mainWindow.webContents.send("allAccounts", allAccounts);
@@ -91,6 +108,10 @@ app.whenReady().then(() => {
 
     ipcMain.on("insert-subject", (event, data) => {
         insertSubject(data);
+    });
+
+    ipcMain.handle("get-subject-from-accountID", (event, data) => {
+        return getSubjects(data);
     });
 
     createWindow();

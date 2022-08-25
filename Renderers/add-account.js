@@ -20,4 +20,5 @@ form.addEventListener("submit", (e) => {
     document.querySelectorAll("input").forEach((input) => {
         input.value = "";
     });
+    window.account.refresh();
 });

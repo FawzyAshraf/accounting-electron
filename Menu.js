@@ -1,11 +1,3 @@
-const { BrowserWindow } = require("electron");
-const path = require("path");
-const {
-    getAllAccounts,
-    getAllAccountsDetailed,
-    getSubjects,
-    getAllSubjectsDetailed,
-} = require("./db");
 const {
     addAccount,
     addSubject,

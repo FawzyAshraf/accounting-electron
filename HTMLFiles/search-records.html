@@ -1,42 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="../styles.css" rel="stylesheet">
-		<title>Records</title>
-	</head>
-	<body>
-		<h1>Search Records</h1>
-		<form action="" id="record-search">
-			<label for="record-name">Record Name</label>
-			<input type="text" name="record-name" id="record-name" /><br>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="../styles.css" rel="stylesheet" />
+        <title>Records</title>
+    </head>
+    <body>
+        <h1>Search Records</h1>
+        <form action="" id="record-search">
+            <fieldset>
+                <div>
+                    <label for="id">ID</label>
+                    <input
+                        type="radio"
+                        name="selection"
+                        id="id"
+                        value="id"
+                        checked
+                    />
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input
+                        type="radio"
+                        name="selection"
+                        id="name"
+                        value="name"
+                    />
+                </div>
+                <div>
+                    <label for="selection-code">Code</label>
+                    <input
+                        type="radio"
+                        name="selection"
+                        id="selection-code"
+                        value="code"
+                    />
+                </div>
+            </fieldset>
 
-			<label for="record-id">Record ID</label>
-			<input type="number" name="record-id" id="record-id" min="1" /><br>
+            <label for="record-id">Record ID</label>
+            <input
+                type="number"
+                name="record-id"
+                id="record-id"
+                min="1"
+            /><br />
 
-			<label for="code">Subject Code</label>
-			<input type="text" name="code" id="code" /><br>
+            <label for="record-name">Record Name</label>
+            <input
+                type="text"
+                name="record-name"
+                id="record-name"
+                disabled
+            /><br />
 
-			<label for="account">Account</label>
-			<select name="account" id="account">
-				<option value="-1">All</option>
-			</select><br>
+            <label for="code">Subject Code</label>
+            <input type="text" name="code" id="code" disabled /><br />
 
-			<label for="specific-date">Specific Date</label>
-			<input type="date" name="specific-date" id="specific-date" /><br>
+            <label for="account">Account</label>
+            <select name="account" id="account">
+                <option value="-1">All</option></select
+            ><br />
 
-			<label for="start-date">Start Date</label>
-			<input type="date" name="start-date" id="start-date" /><br>
+            <fieldset>
+                <div>
+                    <label for="specific">Specific Date</label>
+                    <input
+                        type="radio"
+                        name="date-selection"
+                        id="specific"
+                        value="specific"
+                        checked
+                    />
+                </div>
+                <div>
+                    <label for="timerange">Date Range</label>
+                    <input
+                        type="radio"
+                        name="date-selection"
+                        id="timerange"
+                        value="timerange"
+                    />
+                </div>
+            </fieldset>
 
-			<label for="end-date">End Date</label>
-			<input type="date" name="end-date" id="end-date" /><br>
+            <label for="specific-date">Specific Date</label>
+            <input type="date" name="specific-date" id="specific-date" /><br />
 
-			<button type="submit">Submit</button>
-		</form>
-		<div id="results"></div>
-		<script src="../Table.js"></script>
-		<script src="../Renderers/search-records.js"></script>
-	</body>
+            <label for="start-date">Start Date</label>
+            <input
+                type="date"
+                name="start-date"
+                id="start-date"
+                disabled
+            /><br />
+
+            <label for="finish-date">End Date</label>
+            <input
+                type="date"
+                name="finish-date"
+                id="finish-date"
+                disabled
+            /><br />
+
+            <button type="submit">Submit</button>
+        </form>
+        <div id="results"></div>
+        <script src="../Table.js"></script>
+        <script src="../Renderers/search-records.js"></script>
+    </body>
 </html>

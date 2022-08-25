@@ -51,13 +51,13 @@ exports.addRecord = async () => {
         },
     });
 
-    const allSubjects = await getAllSubjectsDetailed({});
-    // console.log("hello");
+    const allAccounts = await getAllAccountsDetailed();
+    // console.log(allAccounts);
     recordWindow.webContents.on("did-finish-load", () => {
-        recordWindow.webContents.send("allSubjects", allSubjects);
+        recordWindow.webContents.send("allAccounts", allAccounts);
     });
 
-    //recordWindow.openDevTools();
+    recordWindow.openDevTools();
 
     recordWindow.loadFile("HTMLFiles/add-record.html");
 };

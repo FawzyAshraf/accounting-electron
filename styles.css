@@ -8,7 +8,7 @@
 
 body {
     font-family: sans-serif;
-    background: #acbac5;
+    background: #cadcea;
     line-height: 1.5;
     font-size: 0.875rem;
     text-align: center;
@@ -54,7 +54,7 @@ form {
     margin: 0.75rem auto;
     padding: 15px;
     padding-top: 30px;
-    background-color: #dedede;
+    background-color: #fff;
     border-radius: 0.5rem;
 }
 
@@ -128,4 +128,21 @@ button.yellow:hover {
     justify-content: space-between;
     width: 90%;
     margin: auto;
+}
+
+fieldset {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    justify-content: center;
+    border: none;
+}
+
+fieldset div {
+    margin: 10px 20px;
+}
+
+input[type="radio"] {
+    width: 30px;
+    vertical-align: middle;
 }

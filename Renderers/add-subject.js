@@ -14,6 +14,7 @@ window.subject.getAccounts((event, allAccounts) => {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    const name = form.querySelector("#name").value;
     const code = form.querySelector("#code").value;
     const accountId = form.querySelector("#account-id").value;
     const basic = form.querySelector("#basic").value || 0;
@@ -25,15 +26,18 @@ form.addEventListener("submit", (e) => {
             accountId,
             notes,
             basic,
+            name,
         });
     } catch (err) {
         console.error(err);
     }
-    document.querySelector("#message").innerText = `Added ${code} Successfully`;
+    window.subject.refresh();
+    document.querySelector("#message").innerText = `Added ${name} Successfully`;
     document.querySelectorAll("input[type=text]").forEach((input) => {
         input.value = "";
     });
     document.querySelectorAll("input[type=number]").forEach((input) => {
         input.value = 0;
     });
+    document.querySelector("textarea").value = "";
 });

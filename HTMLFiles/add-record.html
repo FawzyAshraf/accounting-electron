@@ -11,26 +11,71 @@
         <h1>Add a New Record</h1>
         <form action="" id="record-form">
             <label for="record-name">Name</label>
-            <input type="text" required name="record-name" id="record-name" /><br />
+            <input
+                type="text"
+                required
+                name="record-name"
+                id="record-name"
+            /><br />
 
-            <label for="subject-id">Code</label>
-            <select name="subject-id" id="subject-id"></select
+            <label for="account-name">Account</label>
+            <select name="account-name" id="account-name"></select
             ><br />
 
-            <label for="account">Account</label>
-            <input type="text" name="account" id="account" disabled /><br />
+            <label for="subject-code">Subject Code</label>
+            <select name="subject-code" id="subject-code"></select
+            ><br />
+
+            <label for="subject-name">Subject Name</label>
+            <input
+                type="text"
+                name="subject-name"
+                id="subject-name"
+                disabled
+            /><br />
 
             <label for="basic" id="basic_text">Basic</label>
-            <input type="number" name="basic" id="basic" value="0" disabled /><br />
+            <input
+                type="number"
+                name="basic"
+                id="basic"
+                value="0"
+                disabled
+            /><br />
 
             <label for="plus" id="plus_text">Plus</label>
-            <input type="number" name="plus" id="plus" value="0" required min="0" step="0.01" /><br />
+            <input
+                type="number"
+                name="plus"
+                id="plus"
+                value="0"
+                required
+                min="0"
+                step="0.01"
+            /><br />
 
             <label for="deduction" id="deduction_text">Deduction</label>
-            <input type="number" name="deduction" id="deduction" value="0" required min="0" step="0.01" /><br />
+            <input
+                type="number"
+                name="deduction"
+                id="deduction"
+                value="0"
+                required
+                min="0"
+                step="0.01"
+            /><br />
 
             <label for="balance" id="balance_text">Balance</label>
-            <input type="number" name="balance" id="balance" value="0" required min="0" step="0.01" disabled /><br />
+            <input
+                type="number"
+                name="balance"
+                id="balance"
+                value="0"
+                required
+                min="0"
+                step="0.01"
+                disabled
+            /><br />
 
             <label for="date">Date</label>
             <input type="date" name="date" id="date" /><br />

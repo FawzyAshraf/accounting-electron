@@ -13,6 +13,58 @@ window.record.getAccounts((event, allAccounts) => {
     });
 });
 
+form.querySelectorAll('input[name="selection"]').forEach((i) => {
+    i.addEventListener("change", (e) => {
+        switch (e.target.value) {
+            case "id":
+                form.querySelector("#record-name").value = "";
+                form.querySelector("#code").value = "";
+                form.querySelector("#record-name").disabled = true;
+                form.querySelector("#code").disabled = true;
+                form.querySelector("#record-id").disabled = false;
+                break;
+            case "code":
+                form.querySelector("#record-name").disabled = true;
+                form.querySelector("#code").disabled = false;
+                form.querySelector("#record-name").value = "";
+                form.querySelector("#record-id").value = "";
+                form.querySelector("#record-id").disabled = true;
+                break;
+            case "name":
+                form.querySelector("#record-name").disabled = false;
+                form.querySelector("#code").disabled = true;
+                form.querySelector("#record-id").disabled = true;
+                form.querySelector("#code").value = "";
+                form.querySelector("#record-id").value = "";
+                break;
+            default:
+                break;
+        }
+    });
+});
+
+form.querySelectorAll('input[name="date-selection"]').forEach((i) => {
+    i.addEventListener("change", (e) => {
+        switch (e.target.value) {
+            case "specific":
+                form.querySelector("#start-date").value = "";
+                form.querySelector("#finish-date").value = "";
+                form.querySelector("#start-date").disabled = true;
+                form.querySelector("#finish-date").disabled = true;
+                form.querySelector("#specific-date").disabled = false;
+                break;
+            case "timerange":
+                form.querySelector("#specific-date").value = "";
+                form.querySelector("#specific-date").disabled = true;
+                form.querySelector("#start-date").disabled = false;
+                form.querySelector("#finish-date").disabled = false;
+                break;
+            default:
+                break;
+        }
+    });
+});
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
     results.innerHTML = "";
@@ -24,7 +76,7 @@ form.addEventListener("submit", async (e) => {
         form.querySelector("#specific-date").value
     );
     const dateStart = getTimestamp(form.querySelector("#start-date").value);
-    const dateEnd = getTimestamp(form.querySelector("#end-date").value);
+    const dateEnd = getTimestamp(form.querySelector("#finish-date").value);
 
     const val = await window.record.search({
         recordName,

@@ -11,6 +11,9 @@
     <body>
         <h1>Add a New Subject</h1>
         <form action="" id="subject-form">
+            <label for="name">Name</label>
+            <input type="text" required name="name" id="name" /><br />
+
             <label for="code">Code</label>
             <input type="text" required name="code" id="code" /><br />
 
@@ -19,7 +22,15 @@
             ><br />
 
             <label for="basic">Basic</label>
-            <input type="number" name="basic" value="0" required id="basic" min="0" step="0.01" /><br />
+            <input
+                type="number"
+                name="basic"
+                value="0"
+                required
+                id="basic"
+                min="0"
+                step="0.01"
+            /><br />
 
             <div class="text-area-container">
                 <label for="notes">Notes</label>
