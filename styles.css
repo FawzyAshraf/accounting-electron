@@ -41,7 +41,8 @@ table tbody tr:nth-of-type(even) {
     background-color: #f2fbfa;
 }
 
-table td + td {
+table td+td,
+table th+th {
     border-left: 1px dashed #59abdb;
 }
 
@@ -143,6 +144,74 @@ fieldset div {
 }
 
 input[type="radio"] {
-    width: 30px;
+    width: 20px;
     vertical-align: middle;
+}
+
+.up,
+.down {
+    position: relative;
+}
+
+.up:before,
+.up:after,
+.down::before,
+.down::after {
+    border: 4px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    width: 0;
+    left: 5px;
+}
+
+.up:before,
+.up:after {
+    top: 55%;
+}
+
+.down:before,
+.down:after {
+    top: 45%;
+}
+
+.up.down:after,
+.up.down::before {
+    top: 50%;
+}
+
+.up:before {
+    border-bottom-color: #fff;
+    margin-top: -9px;
+}
+
+.down:after {
+    border-top-color: #fff;
+    margin-top: 1px;
+}
+
+@font-face {
+    font-family: "FontAwesome";
+    font-display: block;
+    src: url("assets/fa-solid-900.woff2") format("woff2");
+}
+
+.fa-solid {
+    font-family: 'FontAwesome';
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: var(--fa-display, inline-block);
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    font-size: 1.5rem;
+    color: #d32323;
+    cursor: pointer;
+}
+
+.fa-trash-can::before {
+    content: "\f2ed";
 }
